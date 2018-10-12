@@ -22,7 +22,8 @@ class AdminAuthenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect('/home');
+                session()->put('url.intended', redirect()->getUrlGenerator()->full());
+                return redirect('/admin/login');
             }
         }
 
