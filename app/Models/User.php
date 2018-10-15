@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\ApiScopes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     public function hasDefinePrivilege($permission)
     {

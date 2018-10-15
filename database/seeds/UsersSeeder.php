@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Carbon\Carbon;
 
 class UsersSeeder extends Seeder
 {
@@ -11,6 +13,16 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\User::class, 50)->create();
+        $user = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@framgia.com',
+            'password' => '123456',
+        ]);
+
+        if($user) {
+            echo "Seeding User data has done.\n";
+        } else {
+            echo "Seeding User data has fail.\n";
+        }
     }
 }

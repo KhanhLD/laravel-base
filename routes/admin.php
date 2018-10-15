@@ -13,8 +13,9 @@
 |
 */
 
-Route::namespace('Admin')->group(function () {
-    Route::group(['middleware' => ['auth.admin']],  function () {
-        Route::get('/', 'HomeController@index');
-    });
+Route::group(['namespace' => 'Admin', 'middleware' => ['web']], function () {
+    Auth::routes();
+    Route::get('/logout', 'Auth\LoginController@logout');
+
+    Route::get('/', 'HomeController@index');
 });

@@ -13,6 +13,6 @@ class HomeController extends BaseController
 
     public function index()
     {
-        return view('admin.welcome', $this->viewData);
+        return view('layouts.admin.default', $this->viewData);
     }
 }

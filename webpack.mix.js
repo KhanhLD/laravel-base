@@ -11,9 +11,20 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.setPublicPath('public/assets')
-    .setResourceRoot('../')
-    .js('resources/assets/js/app.js', 'public/assets/js')
-    .sass('resources/assets/sass/app.scss', 'public/assets/css')
-    .sass('resources/assets/sass/web/web.scss', 'public/assets/css/web')
-    .sass('resources/assets/sass/admin/admin.scss', 'public/assets/css/admin');
+var assetPath = 'public/assets/';
+var assetsCopy = [
+    ['vendor/almasaeed2010/adminlte/dist', 'adminlte'],
+    ['vendor/almasaeed2010/adminlte/plugins', 'adminlte/plugins'],
+    ['node_modules/font-awesome/css', 'font-awesome/css'],
+    ['node_modules/font-awesome/fonts', 'font-awesome/fonts'],
+    ['node_modules/ionicons/fonts', 'ionicons/fonts'],
+    ['node_modules/ionicons/css', 'ionicons/css'],
+    ['node_modules/jquery/dist', 'js'],
+    ['node_modules/bootstrap/dist', 'bootstrap'],
+];
+
+for (var i = 0; i < assetsCopy.length; i++) {
+    mix.copy(assetsCopy[i][0], assetPath + assetsCopy[i][1]);
+}
+
+mix.sass('resources/assets/sass/admin/admin.scss',  assetPath + 'css/admin')
