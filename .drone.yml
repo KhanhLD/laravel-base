@@ -1,0 +1,48 @@
+build:
+  check:
+    image: framgia/laravel-workspace:latest
+    commands:
+      - cp .env.example .env
+      - cp .env.testing.example .env.testing
+      - composer install
+      - php artisan key:generate
+      - framgia-ci run
+compose:
+  database:
+    image: mysql
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: laravel_app_db_test
+      MYSQL_USER: laravel_app
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+# Deployment
+# deploy:
+#   rocketeer:
+#     image: fdplugins/rocketeer:latest
+#     when:
+#       branch: develop
+#     commands:
+#       - rocketeer deploy --on=develop --stage=develop --no-interaction
+#   rocketeer:
+#     image: fdplugins/rocketeer:latest
+#     when:
+#       branch: master
+#     commands:
+#       - rocketeer deploy --on=production --stage=production --no-interaction
+cache:
+  mount:
+    - node_modules
+    - vendor
+    - .git
+# Need .drone.sec for CHATWORK_ROOM_ID and CHATWORK_TOKEN
+# notify:
+#   chatwork:
+#     image: fdplugins/chatwork
+#     room_id: $$CHATWORK_ROOM_ID
+#     token: $$CHATWORK_TOKEN
+#     format: "TO ALL >>>\r\n[info][title]{repo.owner}/{repo.name}#{build.commit} {build.status}[/title]Branch: {build.branch}\r\nAuthor: {build.author}\r\nMessage: {build.message}\r\nhttp://ci-reports.framgia.vn/repositories/{repo.full_name}/builds/{build.number}/violations/[/info]"
+#     when:
+#       event: [push]
+#       branch: dev/develop*

@@ -23,3 +23,5 @@ apidoc.json
 /tests/coverage
 config/debugbar.php
 docker-compose.yml
+.framgia-ci-reports
+.framgia-ci-result.temp.yml

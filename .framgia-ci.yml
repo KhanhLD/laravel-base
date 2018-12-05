@@ -1,0 +1,46 @@
+report_dir: .framgia-ci-reports
+project_type: php
+test:
+  phpcpd:
+    enable: true
+    ignore: true
+    command: phpcpd --log-pmd=.framgia-ci-reports/phpcpd.xml app
+  phpmd:
+    enable: true
+    ignore: true
+    command: phpmd app xml
+      cleancode,codesize,controversial,design,naming,unusedcode
+      --reportfile .framgia-ci-reports/phpmd.xml
+  pdepend:
+    enable: true
+    ignore: true
+    command: pdepend --summary-xml=.framgia-ci-reports/pdepend.xml
+      --jdepend-chart=.framgia-ci-reports/pdepend.svg
+      --overview-pyramid=.framgia-ci-reports/pyramid.svg
+      app
+  phpmetrics:
+    enable: true
+    ignore: true
+    command: phpmetrics --report-html=.framgia-ci-reports/metrics.html
+      --report-xml=.framgia-ci-reports/metrics.xml
+      app
+  eslint:
+    enable: false # Install eslint and add .eslintrc.js before enabling it
+    ignore: true
+    command: node node_modules/eslint/bin/eslint.js --format=checkstyle
+      --output-file=.framgia-ci-reports/eslint.xml
+      resources/js/
+  phpcs:
+    enable: true
+    ignore: false
+    command: phpcs --runtime-set ignore_warnings_on_exit 1 --standard=phpcs.xml
+      --report-checkstyle=.framgia-ci-reports/phpcs.xml
+  phpunit:
+    enable: true
+    ignore: false
+    command:
+      - framgia-ci test-connect 127.0.0.1 3306 60 # Wait db before migration
+      - php artisan migrate --env=testing
+      - php -dzend_extension=xdebug.so vendor/bin/phpunit
+        --coverage-clover=.framgia-ci-reports/coverage-clover.xml
+        --coverage-html=.framgia-ci-reports/coverage
