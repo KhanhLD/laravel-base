@@ -2,7 +2,8 @@
 Current version: Laravel 5.7.15
 
 #IMPORTANT
-In the `.env` file. With param `APP_DEBUG` - Only set TRUE at your local. MUST set FALSE at STAGING/PROD
+In the `.env` file. With param `APP_DEBUG` - Only set TRUE at your local. MUST set FALSE at STAGING/PROD  
+If you have a new important key at `.env`. You should add it into file `config/blacklist_env.php`
 
 # TODO
 - [ ] Add document

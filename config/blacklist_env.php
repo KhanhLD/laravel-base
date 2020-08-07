@@ -1,4 +1,5 @@
 <?php
+// If you have a new important key at `.env`. You should add it here
 
 return [
     'APP_KEY',
