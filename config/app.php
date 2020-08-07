@@ -1,5 +1,10 @@
 <?php
 
+$blacklistEnv = include __DIR__ . '/blacklist_env.php';
+if (!$blacklistEnv) {
+    $blacklistEnv = [];
+}
+
 return [
 
     /*

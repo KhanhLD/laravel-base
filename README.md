@@ -1,6 +1,9 @@
 # Laravel base project
 Current version: Laravel 5.7.15
 
+#IMPORTANT
+In the `.env` file. With param `APP_DEBUG` - Only set TRUE at your local. MUST set FALSE at STAGING/PROD
+
 # TODO
 - [ ] Add document
 - [ ] Refactor architecture
