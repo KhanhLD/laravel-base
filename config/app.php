@@ -1,5 +1,10 @@
 <?php
 
+$blacklistEnv = include __DIR__ . '/blacklist_env.php';
+if (!$blacklistEnv) {
+    $blacklistEnv = [];
+}
+
 return [
 
     /*
@@ -126,6 +131,16 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    'debug_blacklist' => [
+        '_ENV' => $blacklistEnv,
+
+        '_SERVER' => $blacklistEnv,
+
+        '_POST' => [
+            'password',
+        ],
+    ],
 
 
     /*
