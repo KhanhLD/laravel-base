@@ -132,6 +132,16 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'debug_blacklist' => [
+        '_ENV' => $blacklistEnv,
+
+        '_SERVER' => $blacklistEnv,
+
+        '_POST' => [
+            'password',
+        ],
+    ],
+
 
     /*
     |--------------------------------------------------------------------------
